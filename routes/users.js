@@ -89,6 +89,6 @@ router.post("/register", (req, res) => {
     }
 });
 
-// https://www.youtube.com/watch?v=6FOq4cUdH8k 52.00
+// https://www.youtube.com/watch?v=6FOq4cUdH8k 57.00 - 60.00 Error di alert
 
 module.exports = router;
