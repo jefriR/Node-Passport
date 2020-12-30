@@ -9,6 +9,7 @@ const app = express();
 require('./config/passport')(passport);
 
 // Middleware
+app.use('/assets', express.static('assets'))
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({
