@@ -1,11 +1,27 @@
 const router = require("express").Router();
 const bcrypt = require('bcryptjs');
+const passport = require('passport')
 const User = require("../models/User");
 
 
+// Login Route
 router.get("/login", (req, res) => {
     res.render("login");
 });
+
+router.post('/login', (req, res, next)=>{
+    passport.authenticate('local', { 
+        successRedirect: '/dashboard',
+        failureRedirect: '/users/login',
+        failureFlash: true 
+    })(req, res, next);
+})
+
+router.get('/logout', (req, res)=>{
+    req.logout();
+    req.flash('success_msg', "You'r Logged out");
+    res.redirect('/users/login');
+})
 
 // Register Route
 router.get("/register", (req, res) => {
@@ -89,6 +105,7 @@ router.post("/register", (req, res) => {
         });
     }
 });
+
 
 // https://www.youtube.com/watch?v=6FOq4cUdH8k 57.00 - 60.00 Error di alert
 

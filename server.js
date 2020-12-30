@@ -3,8 +3,10 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 const app = express();
+require('./config/passport')(passport);
 
 // Middleware
 app.use(expressLayouts);
@@ -18,11 +20,14 @@ app.use(session({
     saveUninitialized: true
 })); //Session
 app.use(flash()); //ConenctFlash
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Global Variabel
 app.use((req,res,next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
     next(); 
 });
 
