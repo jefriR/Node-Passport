@@ -19,6 +19,13 @@ app.use(session({
 })); //Session
 app.use(flash()); //ConenctFlash
 
+// Global Variabel
+app.use((req,res,next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    next(); 
+});
+
 // Import Routes
 const indexRoute = require('./routes/index');
 const userRoute = require('./routes/users');
@@ -26,13 +33,6 @@ const userRoute = require('./routes/users');
 // Routes
 app.use('/', indexRoute);
 app.use('/users', userRoute);
-
-// Global Variabel
-app.use((req,res,next) => {
-    res.locals.success_msg = req.flash('success_msg');
-    res.locals.error_msg = req.flash('error_msg');
-    next(); 
-});
 
 // DB Config
 const db = require('./config/keys').MongoURI;
