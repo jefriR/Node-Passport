@@ -39,6 +39,9 @@ const userRoute = require('./routes/users');
 // Routes
 app.use('/', indexRoute);
 app.use('/users', userRoute);
+app.use(function (req, res, next) {
+    res.status(404).redirect("/assets/404.png")
+  })
 
 // DB Config
 const db = require('./config/keys').MongoURI;
